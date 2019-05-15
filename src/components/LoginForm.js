@@ -7,9 +7,9 @@ export default class LoginForm extends React.Component {
     return (
       <View style={styles.container} >
         <Text style={styles.text}>CPF</Text>
-        <TextInput style={styles.textInput} />
+        <TextInput style={styles.textInput} keyboardType='phone-pad' />
         <Text style={styles.text}>Senha</Text>
-        <TextInput style={styles.textInput} />
+        <TextInput style={styles.textInput} secureTextEntry />
         <TouchableHighlight>
           <View style={styles.loginButton}>
             <Text style={styles.loginButtonText}>Entrar</Text>
@@ -38,6 +38,8 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     height: 54,
     backgroundColor: '#21212110',
+    paddingLeft: 8,
+    fontSize: 16,
   },
   loginButton: {
     backgroundColor: '#1d72b6',
