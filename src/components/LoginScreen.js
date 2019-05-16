@@ -1,5 +1,9 @@
 import React from 'react';
-import { StyleSheet, KeyboardAvoidingView } from 'react-native';
+import {
+	StyleSheet,
+	KeyboardAvoidingView,
+	Alert
+} from 'react-native';
 
 import LogoView from './LogoView';
 import LoginForm from './LoginForm';

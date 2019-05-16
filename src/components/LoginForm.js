@@ -1,5 +1,10 @@
 import React from 'react';
-import { StyleSheet, TouchableHighlight, View, Text, Button, Alert } from 'react-native';
+import {
+  StyleSheet,
+  TouchableHighlight,
+  View,
+  Text,
+} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
 export default class LoginForm extends React.Component {

@@ -1,5 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text
+} from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 
 export default class LogoView extends React.Component {
