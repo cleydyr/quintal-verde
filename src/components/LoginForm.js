@@ -9,11 +9,22 @@ import { TextInput } from 'react-native-gesture-handler';
 
 export default class LoginForm extends React.Component {
   state = {
-    submitting: true,
+    submitting: false,
+  }
+
+  onSubmitForm = async () => {
+    this.setState({
+      submitting: true,
+    });
+
+    await this.props.onSubmitForm();
+
+    this.setState({
+      submitting: false,
+    });
   }
 
   render() {
-    const {onSubmitForm} = this.props;
     const {submitting} = this.state;
 
     return (
@@ -22,7 +33,7 @@ export default class LoginForm extends React.Component {
         <TextInput style={styles.textInput} keyboardType='phone-pad' />
         <Text style={styles.text}>Senha</Text>
         <TextInput style={styles.textInput} secureTextEntry />
-        <TouchableHighlight onPress={onSubmitForm}>
+        <TouchableHighlight onPress={this.onSubmitForm}>
           <View style={[styles.loginButtonActive, submitting && {opacity: 0.4}]}>
             <Text style={styles.loginButtonText}>{submitting ? 'Entrando...' : 'Entrar'}</Text>
           </View>
