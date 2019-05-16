@@ -8,16 +8,23 @@ import {
 import { TextInput } from 'react-native-gesture-handler';
 
 export default class LoginForm extends React.Component {
+  state = {
+    submitting: true,
+  }
+
   render() {
+    const {onSubmitForm} = this.props;
+    const {submitting} = this.state;
+
     return (
-      <View style={styles.container} >
+      <View style={styles.container} pointerEvents={submitting ? 'none' : 'auto'}>
         <Text style={styles.text}>CPF</Text>
         <TextInput style={styles.textInput} keyboardType='phone-pad' />
         <Text style={styles.text}>Senha</Text>
         <TextInput style={styles.textInput} secureTextEntry />
-        <TouchableHighlight>
-          <View style={styles.loginButton}>
-            <Text style={styles.loginButtonText}>Entrar</Text>
+        <TouchableHighlight onPress={onSubmitForm}>
+          <View style={[styles.loginButtonActive, submitting && {opacity: 0.4}]}>
+            <Text style={styles.loginButtonText}>{submitting ? 'Entrando...' : 'Entrar'}</Text>
           </View>
         </TouchableHighlight>
       </View>
@@ -46,7 +53,13 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
     fontSize: 16,
   },
-  loginButton: {
+  loginButtonActive: {
+    backgroundColor: '#1d72b6',
+    height: 54,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loginButtonActive: {
     backgroundColor: '#1d72b6',
     height: 54,
     justifyContent: 'center',

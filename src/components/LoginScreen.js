@@ -14,7 +14,7 @@ export default class LoginScreen extends React.Component {
     return (
       <KeyboardAvoidingView style={styles.container} behavior='padding'>
         <LogoView/>
-        <LoginForm/>
+        <LoginForm onSubmitForm={() => Alert.alert('Sucesso!')}/>
       </KeyboardAvoidingView>
 		);
   }
