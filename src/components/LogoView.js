@@ -5,6 +5,7 @@ import {
   Text
 } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
+import { GREEN_MAIN } from '../util/Colors';
 
 export default class LogoView extends React.Component {
   render() {
@@ -20,7 +21,7 @@ export default class LogoView extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#15a453',
+    backgroundColor: GREEN_MAIN,
     alignItems: 'center',
     justifyContent: 'center',
   },

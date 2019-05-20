@@ -1,0 +1,1 @@
+export const GREEN_MAIN = '#15a453';
