@@ -2,9 +2,9 @@ import React from 'react';
 
 import { AppLoading, Font } from 'expo';
 
-import { Entypo } from '@expo/vector-icons';
+import { Entypo, AntDesign} from '@expo/vector-icons';
 
-import ProducesScreen from './src/components/ProducesScreen';
+import ProducesScreen from './src/components/produces/ProducesScreen';
 
 export default class App extends React.Component {
 	state = {
@@ -14,6 +14,7 @@ export default class App extends React.Component {
 	_loadAssetsAsync = () => {
 		return Promise.all([
 			Entypo.loadFont(),
+			AntDesign.loadFont(),
 			Font.loadAsync({
 				Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
 			})

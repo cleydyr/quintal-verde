@@ -10,7 +10,7 @@ import { Entypo } from '@expo/vector-icons';
 const ICON_SIZE = 24;
 
 export default class ProducesHeader extends React.Component {
-  render() {
+	render() {
 		return (
 			<View style={styles.container}>
 				<View style={styles.headerLeft} >
@@ -24,7 +24,7 @@ export default class ProducesHeader extends React.Component {
 				</View>
 			</View>
 		);
-  }
+	}
 }
 
 const styles = StyleSheet.create({
