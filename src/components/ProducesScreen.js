@@ -18,7 +18,7 @@ class ProducesScreen extends React.Component {
       backgroundColor: GREEN_MAIN,
       height: 56,
     },
-    headerTintColor: '#fff',
+    headerTintColor: 'white',
   };
 
   render() {
@@ -33,7 +33,7 @@ class ProducesScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-		backgroundColor: '#fff',
+		backgroundColor: 'white',
   },
   headerText: {
     color: 'white',

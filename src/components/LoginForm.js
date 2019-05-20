@@ -1,11 +1,18 @@
 import React from 'react';
+
 import {
   StyleSheet,
   TouchableHighlight,
   View,
   Text,
+  TextInput,
 } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+
+import {
+  BUTTON_MAIN_ACTIVE,
+  LABEL_TEXT,
+  TEXT_INPUT_BG,
+} from '../util/Colors';
 
 export default class LoginForm extends React.Component {
   state = {
@@ -55,23 +62,17 @@ const styles = StyleSheet.create({
     marginBottom: 6,
     height: 24,
     fontSize: 16,
-    color: '#212121',
+    color: LABEL_TEXT,
   },
   textInput: {
     marginBottom: 12,
     height: 54,
-    backgroundColor: '#21212110',
+    backgroundColor: TEXT_INPUT_BG,
     paddingLeft: 8,
     fontSize: 16,
   },
   loginButtonActive: {
-    backgroundColor: '#1d72b6',
-    height: 54,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  loginButtonActive: {
-    backgroundColor: '#1d72b6',
+    backgroundColor: BUTTON_MAIN_ACTIVE,
     height: 54,
     justifyContent: 'center',
     alignItems: 'center',
