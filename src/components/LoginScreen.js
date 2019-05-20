@@ -19,18 +19,18 @@ async function dummyDoSomething() {
 }
 
 export default class LoginScreen extends React.Component {
-  render() {
-    return (
-      <KeyboardAvoidingView style={styles.container} behavior='padding'>
-        <LogoView/>
-        <LoginForm onSubmitForm={dummyDoSomething}/>
-      </KeyboardAvoidingView>
+	render() {
+		return (
+			<KeyboardAvoidingView style={styles.container} behavior='padding'>
+				<LogoView/>
+				<LoginForm onSubmitForm={dummyDoSomething}/>
+			</KeyboardAvoidingView>
 		);
-  }
+	}
 }
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+	container: {
+		flex: 1,
 		backgroundColor: '#fff',
-  },
+	},
 });
