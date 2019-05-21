@@ -16,7 +16,7 @@ export default class ProducesListBanner extends React.Component {
 
 		return (
 			<View style={styles.listBanner}>
-				<Text style={styles.registeredProductText}>{_getProducePhrase(produceQuantity)}</Text>
+				<Text style={styles.registeredProductText}>{_getRegisteredProducesPhrase(produceQuantity)}</Text>
 				<View style={styles.bannerWarning}>
 					<View style={styles.warningIcon}>
 						<AntDesign name="exclamationcircleo" size={18} color="white"/>
@@ -28,7 +28,7 @@ export default class ProducesListBanner extends React.Component {
 	}
 }
 
-function _getProducePhrase(produceQuantity) {
+function _getRegisteredProducesPhrase(produceQuantity) {
 	if (produceQuantity === 0) {
 		return `Nenhum produto cadastrado`;
 	}
