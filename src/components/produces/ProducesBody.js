@@ -8,6 +8,7 @@ import {
 	TouchableOpacity,
 	Animated,
 	Dimensions,
+	Easing,
 } from 'react-native';
 
 import { GREEN_MAIN, BUTTON_MAIN_ACTIVE } from '../../util/Colors';
@@ -99,6 +100,7 @@ export default class ProducesBody extends React.Component {
 				{
 					toValue: SEND_LIST_HEIGHT,
 					duration: ANIMATION_DURATION_COLLAPSE,
+					easing: Easing.out(Easing.ease),
 					useNativeDriver: true,
 				}
 			).start(() => {
@@ -117,6 +119,7 @@ export default class ProducesBody extends React.Component {
 				{
 					toValue: 0,
 					duration: ANIMATION_DURATION_EXPAND,
+					easing: Easing.in(Easing.ease),
 					useNativeDriver: true,
 				}
 			).start(() => {
