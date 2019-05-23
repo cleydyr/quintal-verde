@@ -85,9 +85,11 @@ export default class ProducesBody extends React.Component {
 
 	handleSendListVisibility = (e) => {
 		const delta = e.nativeEvent.velocity.y;
+		const y = e.nativeEvent.contentOffset.y; // To avoid hiding on bounce at top
+
 		const {animating} = this.state;
 
-		if (delta >= 0 && !animating) {
+		if (delta >= 0 && !animating && y !== 0) {
 			this.setState({
 				animating: true,
 			});
