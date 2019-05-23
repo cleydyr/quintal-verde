@@ -7,6 +7,7 @@ import {
 	SectionList,
 	TouchableOpacity,
 	Animated,
+	Dimensions,
 } from 'react-native';
 
 import { GREEN_MAIN, BUTTON_MAIN_ACTIVE } from '../../util/Colors';
@@ -74,6 +75,7 @@ const productData = [
 const ANIMATION_DURATION_COLLAPSE = 200;
 const ANIMATION_DURATION_EXPAND = 250;
 const SEND_LIST_HEIGHT = 58;
+const {width} = Dimensions.get('window');
 
 export default class ProducesBody extends React.Component {
 	state = {
@@ -164,7 +166,7 @@ const styles = StyleSheet.create({
 	sendListButton: {
 		backgroundColor: BUTTON_MAIN_ACTIVE,
 		height: 58,
-		width: 360,
+		width,
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
