@@ -38,8 +38,8 @@ const styles = StyleSheet.create({
 	headerTitle: {
 		color: 'white',
 		fontSize: 20,
-		fontWeight: 'bold',
 		fontFamily: 'Roboto_medium',
+		letterSpacing: 0.25,
 	},
 
 	headerLeft: {
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
 	},
 
 	headerCenter: {
+		width: 216,
 	},
 
 	headerRight: {
