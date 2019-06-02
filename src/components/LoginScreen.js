@@ -12,8 +12,7 @@ async function dummyDoSomething({cpf, password}) {
 	return new Promise(resolve => {
 		setTimeout(() => {
 			if (cpf === '1234' && password === '1234') {
-				Alert.alert('Sucesso!');
-				
+				Alert.alert('Sucesso!');	
 			}
 			else {
 				Alert.alert(
@@ -24,6 +23,7 @@ async function dummyDoSomething({cpf, password}) {
 					],
 				);
 			}
+
 			resolve();
 		}, 2000
 		);
