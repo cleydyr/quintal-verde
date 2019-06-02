@@ -7,7 +7,7 @@ import {
 
 import {AntDesign} from '@expo/vector-icons';
 
-import { GREEN_MAIN } from '../../util/Colors';
+import { GREEN_MAIN } from '../../../util/Colors';
 
 export default class ProducesListBanner extends React.Component {
 	

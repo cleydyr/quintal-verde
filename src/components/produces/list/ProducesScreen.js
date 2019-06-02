@@ -9,7 +9,7 @@ import {createStackNavigator, createAppContainer} from 'react-navigation';
 
 import ProducesHeader from './ProducesHeader';
 import ProducesBody from './ProducesBody';
-import { GREEN_MAIN } from '../../util/Colors';
+import { GREEN_MAIN } from '../../../util/Colors';
 
 class ProducesScreen extends React.Component {
 	static navigationOptions = {

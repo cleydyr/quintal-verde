@@ -4,20 +4,25 @@ import {
 	StyleSheet,
 	View,
 	Text,
+	TouchableNativeFeedback,
 } from 'react-native';
 
-export default ListItem = ({title, price, quantity, unit}) => (
-	<View style={styles.listItem} >
-		<View style={styles.listItemThumbnail}>
-			<View style={styles.image}></View>
+import Separator from '../../Separator';
+
+export default ListItem = ({title, price, quantity, unit, onPress}) => (
+	<TouchableNativeFeedback onPress={onPress} >
+		<View style={styles.listItem}>
+			<View style={styles.listItemThumbnail}>
+				<View style={styles.image}></View>
+			</View>
+			<View style={styles.listItemDescription}>
+				<Text style={styles.listItemTitle}>{title}</Text>
+				<Text style={styles.listItemPrice}>R$ {price}</Text>
+				<Text style={styles.listItemQuantity}>{quantity} {unit}</Text>
+				<Separator />
+			</View>
 		</View>
-		<View style={styles.listItemDescription}>
-			<Text style={styles.listItemTitle}>{title}</Text>
-			<Text style={styles.listItemPrice}>R$ {price}</Text>
-			<Text style={styles.listItemQuantity}>{quantity} {unit}</Text>
-			<View style={styles.divider} />
-		</View>
-	</View>
+	</TouchableNativeFeedback>
 );
 
 const styles = StyleSheet.create({
@@ -59,11 +64,6 @@ const styles = StyleSheet.create({
 		color: '#212122',
 		opacity: 0.5,
 		marginTop: 6,
+		marginBottom: 17,
 	},
-	divider: {
-		height: 1,
-		backgroundColor: 'black',
-		opacity: 0.12,
-		marginTop: 17,
-	}
 });
