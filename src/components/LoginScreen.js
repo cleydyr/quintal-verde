@@ -2,17 +2,29 @@ import React from 'react';
 import {
 	StyleSheet,
 	KeyboardAvoidingView,
-	Alert
+	Alert,
 } from 'react-native';
 
 import LogoView from './LogoView';
 import LoginForm from './LoginForm';
 
-async function dummyDoSomething() {
+async function dummyDoSomething({cpf, password}) {
 	return new Promise(resolve => {
 		setTimeout(() => {
-			Alert.alert('Sucesso!');
-			resolve();
+			if (cpf === '1234' && password === '1234') {
+				Alert.alert('Sucesso!');
+				resolve();
+			}
+			else {
+				Alert.alert(
+					'Problema ao entrar',
+					'CPF ou senha estão incorretos, por favor, verifique-os e tente novamente.',
+					[
+						{text: 'Tentar novamente', onPress: () => console.log('Ask me later pressed')},
+					],
+				);
+				resolve();
+			}
 		}, 2000
 		);
 	});
