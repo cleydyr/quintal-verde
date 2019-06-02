@@ -4,11 +4,25 @@ import { AppLoading, Font } from 'expo';
 
 import { Entypo, AntDesign} from '@expo/vector-icons';
 
-import ProducesScreen from './src/components/produces/ProducesScreen';
+import ProducesScreenList from './src/components/produces/list/ProducesScreen';
+
+import LoginScreen from './src/components/LoginScreen';
+
+import {createStackNavigator, createAppContainer} from 'react-navigation';
+
+
+const StackNavigation = createStackNavigator({
+	Home: {
+		screen: ProducesScreenList,
+	},
+});
+
+const NavigationContainer = createAppContainer(StackNavigation);
 
 export default class App extends React.Component {
 	state = {
 		loading: true,
+		authenticated: false,
 	}
 
 	_loadAssetsAsync = () => {
@@ -21,21 +35,42 @@ export default class App extends React.Component {
 		]);
 	}
 
+	authenticate = () => {
+		console.log('sucesso!');
+		this.setState({
+			authenticated: true,
+		});
+	}
+
+	stopLoading = () => {
+		this.setState({
+			loading: false,
+		});
+	}
 	render() {
-		const {loading} = this.state;
+		const {
+			loading,
+			authenticated,
+		} = this.state;
 
 		if (loading) {
 			return (
 				<AppLoading
 					startAsync={this._loadAssetsAsync}
-					onFinish={() => this.setState({ loading: false })}
+					onFinish={this.stopLoading}
 					onError={console.warn}
 				/>
 			);
 		}
+
+		if (!authenticated) {
+			return (
+				<LoginScreen onAuthSuccess={this.authenticate}/>
+			);
+		}
 		else {
 			return (
-				<ProducesScreen/>
+				<NavigationContainer/>
 			);
 		}
 	}

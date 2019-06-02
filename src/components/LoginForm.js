@@ -49,12 +49,12 @@ export default class LoginForm extends React.Component {
 			submitting: true,
 		});
 
-		await this.props.onSubmitForm({
+		const success = await this.props.onSubmitForm({
 			cpf,
 			password,
 		});
 
-		this.setState({
+		success || this.setState({
 			submitting: false,
 		});
 	}

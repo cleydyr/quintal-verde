@@ -12,30 +12,37 @@ async function dummyDoSomething({cpf, password}) {
 	return new Promise(resolve => {
 		setTimeout(() => {
 			if (cpf === '1234' && password === '1234') {
-				Alert.alert('Sucesso!');
+				resolve(true);
 			}
 			else {
 				Alert.alert(
 					'Problema ao entrar',
 					'CPF ou senha estão incorretos, por favor, verifique-os e tente novamente.',
 					[
-						{text: 'Tentar novamente', onPress: () => console.log('Ask me later pressed')},
+						{text: 'Tentar novamente'},
 					],
 				);
+				resolve(false);
 			}
-
-			resolve();
 		}, 2000
 		);
 	});
 }
 
 export default class LoginScreen extends React.Component {
+
+	handleSubmitForm = async ({cpf, password}) => {
+		const {onAuthSuccess} = this.props;
+		const success = await dummyDoSomething({cpf, password});
+		success && onAuthSuccess();
+		return success;
+	}
+
 	render() {
 		return (
 			<KeyboardAvoidingView style={styles.container} behavior='padding'>
 				<LogoView/>
-				<LoginForm onSubmitForm={dummyDoSomething}/>
+				<LoginForm onSubmitForm={this.handleSubmitForm}/>
 			</KeyboardAvoidingView>
 		);
 	}

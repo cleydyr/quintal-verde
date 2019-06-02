@@ -5,13 +5,11 @@ import {
 	Text,
 } from 'react-native';
 
-import {createStackNavigator, createAppContainer} from 'react-navigation';
-
 import ProducesHeader from './ProducesHeader';
 import ProducesBody from './ProducesBody';
 import { GREEN_MAIN } from '../../../util/Colors';
 
-class ProducesScreen extends React.Component {
+export default class ProducesScreen extends React.Component {
 	static navigationOptions = {
 		headerTitle: <ProducesHeader/>,
 		headerStyle: {
@@ -39,11 +37,3 @@ const styles = StyleSheet.create({
 		color: 'white',
 	}
 });
-
-const Drawer = createStackNavigator({
-	Produce: {
-		screen: ProducesScreen,
-	},
-});
-
-export default createAppContainer(Drawer);
