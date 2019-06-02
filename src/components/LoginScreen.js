@@ -13,7 +13,7 @@ async function dummyDoSomething({cpf, password}) {
 		setTimeout(() => {
 			if (cpf === '1234' && password === '1234') {
 				Alert.alert('Sucesso!');
-				resolve();
+				
 			}
 			else {
 				Alert.alert(
@@ -23,8 +23,8 @@ async function dummyDoSomething({cpf, password}) {
 						{text: 'Tentar novamente', onPress: () => console.log('Ask me later pressed')},
 					],
 				);
-				resolve();
 			}
+			resolve();
 		}, 2000
 		);
 	});
