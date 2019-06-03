@@ -7,7 +7,7 @@ import {
 import ProduceDetailsHeader from './ProduceDetailsHeader';
 import ProduceDetailsBody from './ProduceDetailsBody';
 
-export default class ProduceDetails extends React.Component {
+export default class ProduceDetailsScreen extends React.Component {
 	render() {
 		const {navigation} = this.props;
 		const item = navigation.getParam('item');
