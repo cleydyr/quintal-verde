@@ -9,12 +9,16 @@ import ProducesScreenList from './src/components/produces/list/ProducesScreen';
 import LoginScreen from './src/components/LoginScreen';
 
 import {createStackNavigator, createAppContainer} from 'react-navigation';
+import ProduceDetails from './src/components/produces/details/ProduceDetails';
 
 
 const StackNavigation = createStackNavigator({
 	Home: {
 		screen: ProducesScreenList,
 	},
+	ProduceDetails: {
+		screen: ProduceDetails,
+	}
 });
 
 const NavigationContainer = createAppContainer(StackNavigation);

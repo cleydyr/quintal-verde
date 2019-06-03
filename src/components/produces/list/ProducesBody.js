@@ -84,6 +84,12 @@ export default class ProducesBody extends React.Component {
 		}
 	}
 
+	navigateToDetails = item => {
+		return () => this.props.navigation.navigate('ProduceDetails', {
+			item,
+		});
+	}
+
 	render() {
 		const {sendListAnim, productData, loading} = this.state;
 		const {navigation} = this.props;
@@ -101,7 +107,7 @@ export default class ProducesBody extends React.Component {
 					onScroll={this.handleSendListVisibility}
 					sections={[{data: productData || []}]}
 					renderSectionHeader={() => <ProducesListBanner submissionDeadline="20/08/2019" produceQuantity={productData && productData.length || 0}/>}
-					renderItem={({item}) => <ProducesListItem {...item}/>}
+					renderItem={({item}) => <ProducesListItem onPress={this.navigateToDetails(item)} {...item}/>}
 					keyExtractor={(item, index) => index}
 				/>
 				<Animated.View style={

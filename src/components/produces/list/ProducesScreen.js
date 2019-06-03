@@ -19,9 +19,11 @@ export default class ProducesScreen extends React.Component {
 	};
 
 	render() {
+		const {navigation} = this.props;
+
 		return (
 			<View style={styles.container}>
-				<ProducesBody />
+				<ProducesBody navigation={navigation}/>
 			</View>
 		);
 	}
