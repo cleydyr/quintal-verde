@@ -28,12 +28,13 @@ export default class ProduceDetailsScreen extends React.Component {
 		},
 		headerTintColor: 'white',
 		headerRight: (
-      <TouchableNativeFeedback
-				style={styles.headerRight}
-        onPress={() => alert('This is a button!')}
-      >
-				<MaterialIcons name="edit" size={ICON_SIZE} color="white" />
-			</TouchableNativeFeedback>
+			<View style={styles.headerRight}>
+				<TouchableNativeFeedback
+					onPress={() => {}}
+				>
+					<MaterialIcons name="edit" size={ICON_SIZE} color="white" />
+				</TouchableNativeFeedback>
+			</View>
     ),
 	};
 	render() {
