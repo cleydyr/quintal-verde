@@ -16,6 +16,7 @@ import { GREEN_MAIN, BUTTON_MAIN_ACTIVE } from '../../../util/Colors';
 import ProducesListBanner from './ProducesListBanner';
 import ProducesListItem from './ProducesListItem';
 import { prepareStocks } from '../../../api/stock-service';
+import LoadingScreen from '../../LoadingScreen';
 
 
 const ANIMATION_DURATION_COLLAPSE = 200;
@@ -34,6 +35,7 @@ export default class ProducesBody extends React.Component {
 		const productData = await prepareStocks();
 		this.setState({
 			productData,
+			loading: false,
 		});
 	}
 
@@ -84,7 +86,14 @@ export default class ProducesBody extends React.Component {
 	}
 
 	render() {
-		const {sendListAnim, productData} = this.state;
+		const {sendListAnim, productData, loading} = this.state;
+		const {navigation} = this.props;
+
+		if (loading) {
+			return (
+				<LoadingScreen text="Carregando itens. Aguarde." />
+			);
+		}
 
 		return (
 			<View style={styles.container}>
