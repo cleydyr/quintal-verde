@@ -36,7 +36,6 @@ export default class App extends React.Component {
 	}
 
 	authenticate = () => {
-		console.log('sucesso!');
 		this.setState({
 			authenticated: true,
 		});
