@@ -24,7 +24,7 @@ export default ListItem = ({name, price, quantity, unit, src, onPress}) => {
 				<View style={styles.listItemDescription}>
 					<Text style={styles.listItemTitle}>{name}</Text>
 					<Text style={styles.listItemPrice}>{NumberFormatter.format(price/100.0)}</Text>
-					<Text style={styles.listItemQuantity}>{quantity} {unit}</Text>
+					<Text style={styles.listItemQuantity}>{quantity} {unit}(s)</Text>
 					<Separator />
 				</View>
 			</View>
