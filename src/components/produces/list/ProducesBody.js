@@ -3,7 +3,6 @@ import {
 	StyleSheet,
 	View,
 	Text,
-	FlatList,
 	SectionList,
 	TouchableOpacity,
 	Animated,
@@ -11,7 +10,7 @@ import {
 	Easing,
 } from 'react-native';
 
-import { GREEN_MAIN, BUTTON_MAIN_ACTIVE } from '../../../util/Colors';
+import { BUTTON_MAIN_ACTIVE } from '../../../util/Colors';
 
 import ProducesListBanner from './ProducesListBanner';
 import ProducesListItem from './ProducesListItem';
