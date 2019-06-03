@@ -7,7 +7,7 @@ export async function authenticate(cpf, password) {
 			else {
 				resolve(false);
 			}
-		}, 2000
+		}, 1000
 		);
 	});
 }
