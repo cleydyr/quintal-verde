@@ -5,25 +5,33 @@ import {
 	View,
 	Text,
 	TouchableNativeFeedback,
+	Image,
 } from 'react-native';
 
 import Separator from '../../Separator';
 
-export default ListItem = ({title, price, quantity, unit, onPress}) => (
-	<TouchableNativeFeedback onPress={onPress} >
-		<View style={styles.listItem}>
-			<View style={styles.listItemThumbnail}>
-				<View style={styles.image}></View>
+import numeral from 'numeral';
+
+export default ListItem = ({name, price, quantity, unit, src, onPress}) => {
+	return (
+		<TouchableNativeFeedback onPress={onPress} >
+			<View style={styles.listItem}>
+				<View style={styles.listItemThumbnail}>
+					<Image
+						style={styles.image}
+						source={{uri: src}}
+					/>
+				</View>
+				<View style={styles.listItemDescription}>
+					<Text style={styles.listItemTitle}>{name}</Text>
+					<Text style={styles.listItemPrice}>R$ {numeral(price/100.0).format('0.00')}</Text>
+					<Text style={styles.listItemQuantity}>{quantity} {unit}</Text>
+					<Separator />
+				</View>
 			</View>
-			<View style={styles.listItemDescription}>
-				<Text style={styles.listItemTitle}>{title}</Text>
-				<Text style={styles.listItemPrice}>R$ {price}</Text>
-				<Text style={styles.listItemQuantity}>{quantity} {unit}</Text>
-				<Separator />
-			</View>
-		</View>
-	</TouchableNativeFeedback>
-);
+		</TouchableNativeFeedback>
+	);
+}
 
 const styles = StyleSheet.create({
 	listItem: {
