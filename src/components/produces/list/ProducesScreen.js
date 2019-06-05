@@ -25,7 +25,7 @@ export default class ProducesScreen extends React.Component {
 
 	state = {
 		y: 0,
-		delta: 0,
+		hide: false,
 		loading: true,
 	}
 
@@ -38,18 +38,17 @@ export default class ProducesScreen extends React.Component {
 	}
 
 	handleSendListVisibility = e => {
-		const delta = e.nativeEvent.velocity.y;
-		const y = e.nativeEvent.contentOffset.y; // To avoid hiding on bounce at top
+		const newY = e.nativeEvent.contentOffset.y;
 
-		this.setState({
-			y,
-			delta,
-		});
+		this.setState(prevState => ({
+			y: newY,
+			hide: newY > prevState.y,
+		}));
 	}
 
 	render() {
 		const {navigation} = this.props;
-		const {y, delta, loading, productData} = this.state;
+		const {hide, loading, productData} = this.state;
 
 		if (loading) {
 			return (
@@ -60,7 +59,7 @@ export default class ProducesScreen extends React.Component {
 		return (
 			<View style={styles.container}>
 				<ProducesBody productData={productData} onScroll={this.handleSendListVisibility} navigation={navigation}/>
-				<FloatingScrollAwareButton buttonText="Enviar lista para clientes" y={y} delta={delta} />
+				<FloatingScrollAwareButton buttonText="Enviar lista para clientes" hide={hide} />
 			</View>
 		);
 	}

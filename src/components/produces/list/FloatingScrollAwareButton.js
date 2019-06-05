@@ -22,10 +22,14 @@ export default class FloatingScrollAwareButton extends React.Component {
 		animating: false,
 	}
 
-	handleVisibility = (delta, y) => {
+	handleVisibility = hide => {
 		const {animating, animationValue} = this.state;
 		
-		if (delta >= 0 && !animating && y !== 0) {
+		if (animating) {
+			return;
+		}
+
+		if (hide) {
 			this.setState({
 				animating: true,
 			});
@@ -44,7 +48,7 @@ export default class FloatingScrollAwareButton extends React.Component {
 				});
 			});
 		}
-		else if (!animating) {
+		else {
 			this.setState({
 				animating: true,
 			});
@@ -66,9 +70,9 @@ export default class FloatingScrollAwareButton extends React.Component {
 	}
 
 	componentDidUpdate = () => {
-		const {y, delta} = this.props;
+		const {hide} = this.props;
 
-		this.handleVisibility(delta, y);
+		this.handleVisibility(hide);
 	}
 
 	render() {
