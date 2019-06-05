@@ -7,7 +7,7 @@ import {
 
 import { Entypo } from '@expo/vector-icons';
 
-const ICON_SIZE = 24;
+import {ICON_SIZE} from '../../../util/Constants';
 
 export default class ProducesHeader extends React.Component {
 	render() {

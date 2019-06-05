@@ -10,9 +10,10 @@ import {MaterialIcons} from '@expo/vector-icons';
 
 import ProduceDetailsHeader from './ProduceDetailsHeader';
 import ProduceDetailsBody from './ProduceDetailsBody';
+
 import { GREEN_MAIN } from '../../../util/Colors';
 
-const ICON_SIZE = 24;
+import {ICON_SIZE} from '../../../util/Constants';
 
 const styles = StyleSheet.create({
 	headerRight: {
