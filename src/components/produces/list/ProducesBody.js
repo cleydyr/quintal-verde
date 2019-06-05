@@ -2,32 +2,31 @@ import React from 'react';
 import {
 	StyleSheet,
 	View,
-	Text,
 	SectionList,
-	TouchableOpacity,
-	Animated,
-	Dimensions,
-	Easing,
 } from 'react-native';
 
-import { BUTTON_MAIN_ACTIVE } from '../../../util/Colors';
 
 import ProducesListBanner from './ProducesListBanner';
 import ProducesListItem from './ProducesListItem';
 import { prepareStocks } from '../../../api/stock-service';
 import LoadingScreen from '../../LoadingScreen';
+import FloatingScrollAwareButton from './FloatingScrollAwareButton';
 
-
-const ANIMATION_DURATION_COLLAPSE = 200;
-const ANIMATION_DURATION_EXPAND = 250;
-const SEND_LIST_HEIGHT = 58;
-const {width} = Dimensions.get('window');
 
 export default class ProducesBody extends React.Component {
 	state = {
-		sendListAnim: new Animated.Value(0),
-		animating: false,
 		loading: true,
+		y: 0,
+		delta: 0,
+	}
+
+	handleSendListVisibility = e => {
+		const delta = e.nativeEvent.velocity.y;
+		const y = e.nativeEvent.contentOffset.y; // To avoid hiding on bounce at top
+		this.setState({
+			y,
+			delta,
+		});
 	}
 
 	componentDidMount = async () => {
@@ -36,52 +35,6 @@ export default class ProducesBody extends React.Component {
 			productData,
 			loading: false,
 		});
-	}
-
-	handleSendListVisibility = (e) => {
-		const delta = e.nativeEvent.velocity.y;
-		const y = e.nativeEvent.contentOffset.y; // To avoid hiding on bounce at top
-
-		const {animating} = this.state;
-
-		if (delta >= 0 && !animating && y !== 0) {
-			this.setState({
-				animating: true,
-			});
-
-			Animated.timing(
-				this.state.sendListAnim,
-				{
-					toValue: SEND_LIST_HEIGHT,
-					duration: ANIMATION_DURATION_COLLAPSE,
-					easing: Easing.out(Easing.ease),
-					useNativeDriver: true,
-				}
-			).start(() => {
-				this.setState({
-					animating: false,
-				});
-			});
-		}
-		else if (!animating) {
-			this.setState({
-				animating: true,
-			});
-
-			Animated.timing(
-				this.state.sendListAnim,
-				{
-					toValue: 0,
-					duration: ANIMATION_DURATION_EXPAND,
-					easing: Easing.in(Easing.ease),
-					useNativeDriver: true,
-				}
-			).start(() => {
-				this.setState({
-					animating: false,
-				});
-			});
-		}
 	}
 
 	navigateToDetails = item => {
@@ -110,22 +63,7 @@ export default class ProducesBody extends React.Component {
 					renderItem={({item}) => <ProducesListItem onPress={this.navigateToDetails(item)} {...item}/>}
 					keyExtractor={(item, index) => index}
 				/>
-				<Animated.View style={
-					[
-						styles.animatedView,
-						{
-							transform: [
-								{
-									translateY: sendListAnim,
-								}
-							],
-						}
-					]
-				}>
-					<TouchableOpacity style={styles.sendListButton}>
-						<Text style={styles.sendListText}>Enviar lista para clientes</Text>
-					</TouchableOpacity>
-				</Animated.View>
+				<FloatingScrollAwareButton buttonText="Enviar lista para clientes" y={y} delta={delta} />
 			</View>
 		);
 	}
@@ -135,22 +73,4 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 	},
-	sendListButton: {
-		backgroundColor: BUTTON_MAIN_ACTIVE,
-		height: 58,
-		width,
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	sendListText: {
-		color: 'white',
-		lineHeight: 30,
-		fontFamily: 'Roboto',
-		fontWeight: 'bold',
-		fontSize: 19,
-	},
-	animatedView: 	{
-		position: 'absolute',
-		bottom: 0,
-	}
 });
