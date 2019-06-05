@@ -10,11 +10,10 @@ import ProducesListBanner from './ProducesListBanner';
 import ProducesListItem from './ProducesListItem';
 
 export default class ProducesBody extends React.Component {
-	navigateToDetails = item => {
-		return () => this.props.navigation.navigate('ProduceDetails', {
+	navigateToDetails = item => () =>
+		this.props.navigation.navigate('ProduceDetails', {
 			item,
 		});
-	}
 
 	render() {
 		const {productData, onScroll} = this.props;
