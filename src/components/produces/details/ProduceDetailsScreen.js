@@ -37,6 +37,7 @@ export default class ProduceDetailsScreen extends React.Component {
 			</View>
     ),
 	};
+
 	render() {
 		const {navigation} = this.props;
 		const item = navigation.getParam('item');
