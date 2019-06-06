@@ -11,6 +11,12 @@ import LoginScreen from './src/components/LoginScreen';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import ProduceDetailsScreen from './src/components/produces/details/ProduceDetailsScreen';
 
+import { createStore, applyMiddleware } from 'redux';
+import {Provider} from 'react-redux'
+import reducer from "./src/reducers";
+import thunk from 'redux-thunk';
+
+const store = createStore(reducer, applyMiddleware(thunk));
 
 const StackNavigation = createStackNavigator({
 	Home: {
@@ -23,7 +29,7 @@ const StackNavigation = createStackNavigator({
 
 const NavigationContainer = createAppContainer(StackNavigation);
 
-export default class App extends React.Component {
+class App extends React.Component {
 	state = {
 		loading: true,
 		authenticated: false,
@@ -78,5 +84,15 @@ export default class App extends React.Component {
 				<NavigationContainer/>
 			);
 		}
+	}
+}
+
+export default class ReduxApp extends React.Component {
+	render() {
+		return (
+			<Provider store={store}>
+				<App/>
+			</Provider>
+		);
 	}
 }

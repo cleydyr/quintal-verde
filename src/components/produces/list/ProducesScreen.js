@@ -3,17 +3,19 @@ import {
 	StyleSheet,
 	View,
 } from 'react-native';
-
-import { prepareStocks } from '../../../api/stock-service';
+import {connect} from 'react-redux';
 
 import ProducesHeader from './ProducesHeader';
 import ProducesBody from './ProducesBody';
 import LoadingScreen from '../../LoadingScreen';
 import FloatingScrollAwareButton from './FloatingScrollAwareButton';
 
+import {startFetching} from '../../../actions';
+import {denormalizeData} from '../../../util/Functions';
+
 import { GREEN_MAIN } from '../../../util/Colors';
 
-export default class ProducesScreen extends React.Component {
+class ProducesScreen extends React.Component {
 	static navigationOptions = {
 		headerTitle: <ProducesHeader/>,
 		headerStyle: {
@@ -30,11 +32,9 @@ export default class ProducesScreen extends React.Component {
 	}
 
 	componentDidMount = async () => {
-		const productData = await prepareStocks();
-		this.setState({
-			productData,
-			loading: false,
-		});
+		const {dispatch} = this.props;
+
+		dispatch(startFetching());
 	}
 
 	handleSendListVisibility = e => {
@@ -47,10 +47,10 @@ export default class ProducesScreen extends React.Component {
 	}
 
 	render() {
-		const {navigation} = this.props;
-		const {hide, loading, productData} = this.state;
+		const {navigation, isLoadingProduces, listItems} = this.props;
+		const {hide} = this.state;
 
-		if (loading) {
+		if (isLoadingProduces) {
 			return (
 				<LoadingScreen text="Carregando itens. Aguarde." />
 			);
@@ -58,7 +58,7 @@ export default class ProducesScreen extends React.Component {
 
 		return (
 			<View style={styles.container}>
-				<ProducesBody productData={productData} onScroll={this.handleSendListVisibility} navigation={navigation}/>
+				<ProducesBody productData={listItems} onScroll={this.handleSendListVisibility} navigation={navigation}/>
 				<FloatingScrollAwareButton buttonText="Enviar lista para clientes" hide={hide} />
 			</View>
 		);
@@ -74,3 +74,16 @@ const styles = StyleSheet.create({
 		color: 'white',
 	}
 });
+
+const mapStateToProps = state => {
+	const {isLoadingProduces, produces, stockItems} = state;
+
+	return {
+		isLoadingProduces,
+		listItems: denormalizeData(produces, stockItems),
+	}
+};
+
+const ConnectedProducesScreen = connect(mapStateToProps)(ProducesScreen);
+
+export default ConnectedProducesScreen;
