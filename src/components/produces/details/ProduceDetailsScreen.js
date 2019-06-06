@@ -23,6 +23,16 @@ const styles = StyleSheet.create({
 	},
 });
 
+const EditButton = (props) => (
+	<View style={styles.headerRight}>
+		<TouchableNativeFeedback
+			onPress={props.onPress}
+		>
+			<MaterialIcons name="edit" size={ICON_SIZE} color="white" />
+		</TouchableNativeFeedback>
+	</View>
+);
+
 class ProduceDetailsScreen extends React.Component {
 	static navigationOptions = {
 		headerStyle: {
@@ -30,15 +40,7 @@ class ProduceDetailsScreen extends React.Component {
 			height: 56,
 		},
 		headerTintColor: 'white',
-		headerRight: (
-			<View style={styles.headerRight}>
-				<TouchableNativeFeedback
-					onPress={() => {}}
-				>
-					<MaterialIcons name="edit" size={ICON_SIZE} color="white" />
-				</TouchableNativeFeedback>
-			</View>
-    ),
+		headerRight: <EditButton />,
 	};
 
 	render() {
