@@ -7,11 +7,11 @@ export function denormalizeData(produces, stockItems) {
 			quantity,
 		};
 	}).reduce((acc, cur) => {
-		const {id, quantity} = cur;
+		const {produceId, quantity} = cur;
 
-		if (acc.some(item => item.id === id)) {
+		if (acc.some(item => item.produceId === produceId)) {
 			return acc.map(item =>
-				item.id === id
+				item.produceId === produceId
 				? {
 						...item,
 						quantity: item.quantity + quantity,

@@ -46,6 +46,14 @@ class ProducesScreen extends React.Component {
 		}));
 	}
 
+	navigateToDetails = item => () => {
+		const {navigation, stocks} = this.props;
+
+		navigation.navigate('ProduceDetails', {
+			item,
+		});
+	}
+
 	render() {
 		const {navigation, isLoadingProduces, listItems} = this.props;
 		const {hide} = this.state;
@@ -58,7 +66,7 @@ class ProducesScreen extends React.Component {
 
 		return (
 			<View style={styles.container}>
-				<ProducesBody productData={listItems} onScroll={this.handleSendListVisibility} navigation={navigation}/>
+				<ProducesBody productData={listItems} onScroll={this.handleSendListVisibility} onEachItemPress={this.navigateToDetails} navigation={navigation}/>
 				<FloatingScrollAwareButton buttonText="Enviar lista para clientes" hide={hide} />
 			</View>
 		);

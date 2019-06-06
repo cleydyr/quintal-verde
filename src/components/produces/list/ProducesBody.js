@@ -10,13 +10,8 @@ import ProducesListBanner from './ProducesListBanner';
 import ProducesListItem from './ProducesListItem';
 
 export default class ProducesBody extends React.Component {
-	navigateToDetails = item => () =>
-		this.props.navigation.navigate('ProduceDetails', {
-			item,
-		});
-
 	render() {
-		const {productData, onScroll} = this.props;
+		const {productData, onScroll, onEachItemPress} = this.props;
 
 		return (
 			<View style={styles.container}>
@@ -25,7 +20,7 @@ export default class ProducesBody extends React.Component {
 					onScroll={onScroll}
 					sections={[{data: productData || []}]}
 					renderSectionHeader={() => <ProducesListBanner submissionDeadline="20/08/2019" produceQuantity={productData && productData.length || 0}/>}
-					renderItem={({item}) => <ProducesListItem onPress={this.navigateToDetails(item)} {...item}/>}
+					renderItem={({item}) => <ProducesListItem onPress={onEachItemPress(item)} {...item}/>}
 					keyExtractor={(item, index) => index}
 				/>
 			</View>
