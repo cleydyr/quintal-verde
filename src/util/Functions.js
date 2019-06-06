@@ -23,3 +23,19 @@ export function denormalizeData(produces, stockItems) {
 		}
 	}, []);
 }
+
+export function calculateAvailability(produceId, users, stocks, stockItems) {
+	const relevantStockItems = stockItems.filter(stockItem => stockItem.produceId === produceId);
+	const availability = relevantStockItems.map(relevantStockItem => {
+		const {stockId, quantity} = relevantStockItem;
+		const stock = stocks.find(stock => stock.stockId === stockId);
+		const userId = stock.userId;
+		const {name} = users.find(user => user.login.uuid === userId);
+
+		return {
+			name: `${name.first} ${name.last}`,
+			quantity,
+		}
+	});
+	return availability;
+}

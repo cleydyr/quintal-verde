@@ -15,6 +15,7 @@ import ProduceDetailsBody from './ProduceDetailsBody';
 import { GREEN_MAIN } from '../../../util/Colors';
 
 import {ICON_SIZE} from '../../../util/Constants';
+import { calculateAvailability } from '../../../util/Functions';
 
 const styles = StyleSheet.create({
 	headerRight: {
@@ -57,22 +58,6 @@ class ProduceDetailsScreen extends React.Component {
 			</View>
 		);
 	}
-}
-
-const calculateAvailability = (produceId, users, stocks, stockItems) => {
-	const relevantStockItems = stockItems.filter(stockItem => stockItem.produceId === produceId);
-	const availability = relevantStockItems.map(relevantStockItem => {
-		const {stockId, quantity} = relevantStockItem;
-		const stock = stocks.find(stock => stock.stockId === stockId);
-		const userId = stock.userId;
-		const {name} = users.find(user => user.login.uuid === userId);
-
-		return {
-			name: `${name.first} ${name.last}`,
-			quantity,
-		}
-	});
-	return availability;
 }
 
 const mapStateToProps = (state, ownProps) => {
