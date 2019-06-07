@@ -1,7 +1,7 @@
-import { getProduces } from "../api/produce-service";
-import { getStockItems } from "../api/stock-item-service";
-import { getStocks } from '../api/stock-service';
-import { getUsers } from '../api/user-service';
+import { getProduces } from "../service-api/produce-service";
+import { getStockItems } from "../service-api/stock-item-service";
+import { getStocks } from '../service-api/stock-service';
+import { getUsers } from '../service-api/user-service';
 
 export const EDIT_PRODUCE = 'EDIT_PRODUCE';
 export const START_LOADING_PRODUCES = 'START_LOADING_PRODUCES';

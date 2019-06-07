@@ -7,7 +7,7 @@ import {
 
 import LogoView from './LogoView';
 import LoginForm from './LoginForm';
-import {authenticate} from '../api/user-service';
+import {authenticate} from '../service-api/user-service';
 
 export default class LoginScreen extends React.Component {
 
