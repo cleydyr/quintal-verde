@@ -16,6 +16,8 @@ import { GREEN_MAIN } from '../../../util/Colors';
 
 import {ICON_SIZE} from '../../../util/Constants';
 import { calculateAvailability } from '../../../util/Functions';
+import EditProduceModal from '../edit/EditProduceModal';
+import { toggleEditProduceModalVisible } from '../../../actions';
 
 const styles = StyleSheet.create({
 	headerRight: {
@@ -33,14 +35,19 @@ const EditButton = (props) => (
 	</View>
 );
 
+
 class ProduceDetailsScreen extends React.Component {
-	static navigationOptions = {
-		headerStyle: {
-			backgroundColor: GREEN_MAIN,
-			height: 56,
-		},
-		headerTintColor: 'white',
-		headerRight: <EditButton />,
+	static navigationOptions = ({navigation}) => {
+		const dispatch = navigation.getParam('dispatch');
+
+		return {
+			headerStyle: {
+				backgroundColor: GREEN_MAIN,
+				height: 56,
+			},
+			headerTintColor: 'white',
+			headerRight: <EditButton onPress={() => dispatch(toggleEditProduceModalVisible())}/>,
+		}
 	};
 
 	render() {
@@ -57,6 +64,7 @@ class ProduceDetailsScreen extends React.Component {
 			<View>
 				<ProduceDetailsHeader imageData={src} name={name} price={price} quantity={quantity} unit={unit}/>
 				<ProduceDetailsBody quantity={quantity} unit={unit} availability={availability}/>
+				<EditProduceModal price={price} name={name} unit={unit} imageData={src} />
 			</View>
 		);
 	}

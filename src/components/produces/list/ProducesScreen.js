@@ -47,10 +47,11 @@ class ProducesScreen extends React.Component {
 	}
 
 	navigateToDetails = item => () => {
-		const {navigation, stocks} = this.props;
+		const {navigation, dispatch} = this.props;
 
 		navigation.navigate('ProduceDetails', {
 			item,
+			dispatch,
 		});
 	}
 

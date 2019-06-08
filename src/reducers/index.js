@@ -5,6 +5,7 @@ import {
 	UPDATE_STOCK_ITEMS,
 	UPDATE_STOCKS,
 	UPDATE_USERS,
+	TOGGLE_PRODUCE_MODAL_VISIBLE,
 } from '../actions';
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
 	users: [],
 	stocks: [],
 	stockItems: [],
+	isEditProduceModalVisible: false,
 }
 
 export default function reducer(state = initialState, action) {
@@ -57,6 +59,11 @@ export default function reducer(state = initialState, action) {
 			return {
 				...state,
 				users,
+			}
+		case TOGGLE_PRODUCE_MODAL_VISIBLE:
+			return {
+				...state,
+				isEditProduceModalVisible: !state.isEditProduceModalVisible,
 			}
 		default:
 			return state;

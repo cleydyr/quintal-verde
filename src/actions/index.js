@@ -10,6 +10,7 @@ export const UPDATE_PRODUCES = 'UPDATE_PRODUCES';
 export const UPDATE_STOCK_ITEMS = 'UPDATE_STOCK_ITEMS';
 export const UPDATE_STOCKS = 'UPDATE_STOCKS';
 export const UPDATE_USERS = 'UPDATE_USERS';
+export const TOGGLE_PRODUCE_MODAL_VISIBLE = 'TOGGLE_PRODUCE_MODAL_VISIBLE';
 
 const startLoadingProduces = () => ({
 	type: START_LOADING_PRODUCES,
@@ -71,3 +72,7 @@ const fetchUsers = () => async dispatch => {
 	const users = await getUsers();
 	dispatch(updateUsers(users));
 }
+
+export const toggleEditProduceModalVisible = () => ({
+	type: TOGGLE_PRODUCE_MODAL_VISIBLE,
+});
