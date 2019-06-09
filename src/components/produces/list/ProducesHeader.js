@@ -7,21 +7,17 @@ import {
 
 import { Entypo } from '@expo/vector-icons';
 
-import {ICON_SIZE} from '../../../util/Constants';
+import HeaderButton from '../../HeaderButton';
 
 export default class ProducesHeader extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<View style={styles.headerLeft} >
-					<Entypo name="menu" size={ICON_SIZE} color="white" />
-				</View>
+				<HeaderButton element={Entypo} name="menu" />
 				<View style={styles.headerCenter} >
 					<Text style={styles.headerTitle}>Produtos</Text>
 				</View>
-				<View style={styles.headerRight} >
-					<Entypo name="plus" size={ICON_SIZE} color="white" />
-				</View>
+				<HeaderButton element={Entypo} name="plus" />
 			</View>
 		);
 	}
@@ -42,15 +38,7 @@ const styles = StyleSheet.create({
 		letterSpacing: 0.25,
 	},
 
-	headerLeft: {
-		marginLeft: 21,
-	},
-
 	headerCenter: {
 		width: 216,
-	},
-
-	headerRight: {
-		marginRight: 21,
 	},
 });

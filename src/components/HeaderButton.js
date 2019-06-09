@@ -16,8 +16,9 @@ import {
 } from '../util/Constants';
 
 const styles = StyleSheet.create({
-	headerRight: {
+	button: {
 		marginRight: 21,
+		marginLeft: 21,
 		alignItems: 'center',
 		justifyContent: 'center',
 		width: ICON_SIZE*1.2,
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
 export default HeaderButton = ({element, name, onPress}) => (
 	<TouchableNativeFeedback onPress={onPress} hitSlop={TOUCHABLE_ICON_HIT_SLOP}
 		background={TouchableNativeFeedback.Ripple(GREEN_MAIN_DARKEN_50, true)}>
-		<View style={styles.headerRight}>
+		<View style={styles.button}>
 				{
 					React.createElement(
 						element,
