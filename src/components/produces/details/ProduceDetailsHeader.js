@@ -9,6 +9,8 @@ import {
 
 import { GREEN_MAIN } from '../../../util/Colors';
 
+import { toLocalCurrency } from '../../../util/Functions';
+
 export default class ProduceDetailsHeader extends React.Component {
 	render() {
 		const {name, price, quantity, unit, imageData} = this.props;
@@ -31,7 +33,7 @@ export default class ProduceDetailsHeader extends React.Component {
 							{name}
 						</Text>
 						<Text style={styles.priceText}>
-							{NumberFormatter.format(price/100.0)}
+							{toLocalCurrency(price)}
 						</Text>
 						<Text style={styles.quantityText}>
 							{quantity} {unit}(s)

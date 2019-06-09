@@ -1,3 +1,5 @@
+import NumberFormatter from './NumberFormatter';
+
 export function denormalizeData(produces, stockItems) {
 	return stockItems.map(item => {
 		const {produceId, quantity} = item;
@@ -38,4 +40,8 @@ export function calculateAvailability(produceId, users, stocks, stockItems) {
 		}
 	});
 	return availability;
+}
+
+export function toLocalCurrency(value) {
+	return NumberFormatter.format(value/100.0);
 }

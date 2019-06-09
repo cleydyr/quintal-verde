@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import Separator from '../../Separator';
-import NumberFormatter from '../../../util/NumberFormatter';
+import { toLocalCurrency } from '../../../util/Functions';
 
 export default ListItem = ({name, price, quantity, unit, src, onPress}) => {
 	return (
@@ -23,7 +23,7 @@ export default ListItem = ({name, price, quantity, unit, src, onPress}) => {
 				</View>
 				<View style={styles.listItemDescription}>
 					<Text style={styles.listItemTitle}>{name}</Text>
-					<Text style={styles.listItemPrice}>{NumberFormatter.format(price/100.0)}</Text>
+					<Text style={styles.listItemPrice}>{toLocalCurrency(price)}</Text>
 					<Text style={styles.listItemQuantity}>{quantity} {unit}(s)</Text>
 					<Separator />
 				</View>
