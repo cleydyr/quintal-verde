@@ -2,7 +2,6 @@ import React from 'react';
 
 import {
 	View,
-	TouchableNativeFeedback,
 	StyleSheet,
 } from 'react-native';
 import {connect} from 'react-redux';
@@ -12,29 +11,14 @@ import {MaterialIcons} from '@expo/vector-icons';
 import ProduceDetailsHeader from './ProduceDetailsHeader';
 import ProduceDetailsBody from './ProduceDetailsBody';
 
-import { GREEN_MAIN } from '../../../util/Colors';
+import {
+	GREEN_MAIN,
+} from '../../../util/Colors';
 
-import {ICON_SIZE} from '../../../util/Constants';
 import { calculateAvailability } from '../../../util/Functions';
 import EditProduceModal from '../edit/EditProduceModal';
 import { toggleEditProduceModalVisible } from '../../../actions';
-
-const styles = StyleSheet.create({
-	headerRight: {
-		marginRight: 21,
-	},
-});
-
-const EditButton = (props) => (
-	<View style={styles.headerRight}>
-		<TouchableNativeFeedback
-			onPress={props.onPress}
-		>
-			<MaterialIcons name="edit" size={ICON_SIZE} color="white" />
-		</TouchableNativeFeedback>
-	</View>
-);
-
+import HeaderButton from '../../HeaderButton';
 
 class ProduceDetailsScreen extends React.Component {
 	static navigationOptions = ({navigation}) => {
@@ -46,7 +30,7 @@ class ProduceDetailsScreen extends React.Component {
 				height: 56,
 			},
 			headerTintColor: 'white',
-			headerRight: <EditButton onPress={() => dispatch(toggleEditProduceModalVisible())}/>,
+			headerRight: <HeaderButton onPress={() => dispatch(toggleEditProduceModalVisible())} element={MaterialIcons} name="edit"/>,
 		}
 	};
 
@@ -62,7 +46,7 @@ class ProduceDetailsScreen extends React.Component {
 		} = this.props;
 
 		return (
-			<View>
+			<View style={styles.container}>
 				<ProduceDetailsHeader imageData={src} name={name} price={price} quantity={quantity} unit={unit}/>
 				<ProduceDetailsBody quantity={quantity} unit={unit} availability={availability}/>
 				<EditProduceModal produceId={produceId} price={price} name={name} unit={unit} imageData={src} name={name} price={price} />
@@ -70,6 +54,12 @@ class ProduceDetailsScreen extends React.Component {
 		);
 	}
 }
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+	}
+});
 
 const mapStateToProps = (state, ownProps) => {
 	const {navigation} = ownProps;

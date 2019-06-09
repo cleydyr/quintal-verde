@@ -9,6 +9,7 @@ import {
 	StyleSheet,
 	Picker,
 	Image,
+	KeyboardAvoidingView,
 } from 'react-native';
 
 import { TextInputMask } from 'react-native-masked-text';
@@ -74,7 +75,7 @@ class EditProduceModal extends React.Component {
 
 		return (
 			<Modal transparent={true} animationType='fade' visible={visible} onRequestClose={onRequestClose}>
-				<View style={styles.modal}>
+				<KeyboardAvoidingView style={styles.modal} behavior='padding'>
 					<View style={styles.container}>
 						<Text style={styles.headline6}>Editar produto</Text>
 						<View style={styles.body}>
@@ -117,7 +118,7 @@ class EditProduceModal extends React.Component {
 							</TouchableOpacity>
 						</View>
 					</View>
-				</View>
+				</KeyboardAvoidingView>
 			</Modal>
 		);
 	}
