@@ -13,7 +13,13 @@ import {
 
 import { connect } from "react-redux";
 
-import { BLACK_ALPHA, LABEL_TEXT, TEXT_INPUT_BG } from '../../../util/Colors';
+import {
+	BLACK_ALPHA,
+	LABEL_TEXT,
+	TEXT_INPUT_BG,
+	PICKER_BG,
+	MASK,
+} from '../../../util/Colors';
 
 import { toggleEditProduceModalVisible } from '../../../actions';
 
@@ -23,26 +29,40 @@ class EditProduceModal extends React.Component {
 			visible,
 			imageData,
 			onRequestClose,
+			name,
+			price,
+			unit,
 		} = this.props;
 
 		return (
-			<Modal style={styles.container} visible={visible} onRequestClose={onRequestClose}>
-				<Text style={styles.headline6}>Editar produto</Text>
-				<View styles={styles.imageContainer}>
-					<Image source={
-								{
-									uri: imageData,
-								}
-							}
-						style={styles.image}
-						/>
-				</View>
-				<Text style={styles.fieldLabel}>Nome</Text>
-				<TextInput style={styles.textInput}/>
-				<Text style={styles.fieldLabel}>Preço</Text>
-				<View>
-					<TextInput style={styles.textInput}/>
-					<Picker />
+			<Modal transparent={true} animationType='fade' visible={visible} onRequestClose={onRequestClose}>
+				<View style={styles.modal}>
+					<View style={styles.container}>
+						<Text style={styles.headline6}>Editar produto</Text>
+						<View style={styles.body}>
+							<View style={styles.imageContainer}>
+								<Image
+									source={{uri: imageData}}
+									style={styles.image}
+									/>
+							</View>
+							<Text style={styles.fieldLabel}>Nome</Text>
+							<TextInput style={styles.textInput} value={name}/>
+							<Text style={styles.fieldLabel}>Preço</Text>
+							<View style={styles.horizontal}>
+								<TextInput style={[styles.textInput, {width: 143}]} value={`${price/100.0}`}/>
+								<View style={styles.unitPicker}>
+									<Picker selectedValue="kg" mode='dropdown' >
+										<Picker.Item label="unidade" value="unidade" />
+										<Picker.Item label="kg" value="kg" />
+									</Picker>
+								</View>
+							</View>
+							<View>
+
+							</View>
+						</View>
+					</View>
 				</View>
 			</Modal>
 		);
@@ -50,13 +70,23 @@ class EditProduceModal extends React.Component {
 }
 
 const styles = StyleSheet.create({
+	modal: {
+		alignItems: 'center',
+		justifyContent: 'center',
+		flex: 1,
+		backgroundColor: MASK,
+	},
 	container: {
-		width: 328,
-		height: 486,
 		paddingLeft: 24,
 		paddingRight: 24,
 		paddingBottom: 24,
 		paddingTop: 23,
+		width: 328,
+		height: 486,
+		backgroundColor: 'white',
+	},
+	body: {
+		marginTop: 25,
 	},
 	headline6: {
 		height: 24,
@@ -66,7 +96,6 @@ const styles = StyleSheet.create({
 		letterSpacing: 0.25,
 	},
 	imageContainer: {
-		marginTop: 25,
 		alignItems: 'center',
 		justifyContent: 'center',
 		marginBottom: 6,
@@ -74,6 +103,7 @@ const styles = StyleSheet.create({
 	image: {
 		width: 116,
 		height: 116,
+		borderRadius: 4,
 	},
 	fieldLabel: {
 		marginTop: 12,
@@ -88,12 +118,29 @@ const styles = StyleSheet.create({
 		height: 54,
 		backgroundColor: TEXT_INPUT_BG,
 		color: LABEL_TEXT,
-		fontSize: 16,
-		opacity: 0.1,
+		fontSize: 21,
 		paddingLeft: 12,
 		paddingRight: 12,
 		paddingTop: 12,
 		paddingBottom: 12,
+		fontFamily: 'Roboto_medium',
+		fontWeight: '400',
+	},
+	unitPicker: {
+		width: 137,
+		height: 54,
+		paddingLeft: 18,
+		backgroundColor: PICKER_BG,
+	},
+	pickerSelection: {
+		color: LABEL_TEXT,
+		fontFamily: 'Roboto_medium',
+		fontSize: 21,
+		lineHeight: 30,
+		letterSpacing: 0.15,
+	},
+	horizontal: {
+		flexDirection: 'row',
 	},
 });
 

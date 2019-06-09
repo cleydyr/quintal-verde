@@ -64,7 +64,7 @@ class ProduceDetailsScreen extends React.Component {
 			<View>
 				<ProduceDetailsHeader imageData={src} name={name} price={price} quantity={quantity} unit={unit}/>
 				<ProduceDetailsBody quantity={quantity} unit={unit} availability={availability}/>
-				<EditProduceModal price={price} name={name} unit={unit} imageData={src} />
+				<EditProduceModal price={price} name={name} unit={unit} imageData={src} name={name} price={price} />
 			</View>
 		);
 	}
