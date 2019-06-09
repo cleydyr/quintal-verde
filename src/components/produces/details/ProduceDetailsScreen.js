@@ -58,13 +58,14 @@ class ProduceDetailsScreen extends React.Component {
 			quantity,
 			unit,
 			src,
+			produceId,
 		} = this.props;
 
 		return (
 			<View>
 				<ProduceDetailsHeader imageData={src} name={name} price={price} quantity={quantity} unit={unit}/>
 				<ProduceDetailsBody quantity={quantity} unit={unit} availability={availability}/>
-				<EditProduceModal price={price} name={name} unit={unit} imageData={src} name={name} price={price} />
+				<EditProduceModal produceId={produceId} price={price} name={name} unit={unit} imageData={src} name={name} price={price} />
 			</View>
 		);
 	}
@@ -72,8 +73,9 @@ class ProduceDetailsScreen extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
 	const {navigation} = ownProps;
-	const {quantity, unit, price, name, src, produceId} = navigation.getParam('item');
-	const {users, stocks, stockItems} = state;
+	const {produceId} = navigation.getParam('item');
+	const {users, stocks, stockItems, produces} = state;
+	const {quantity, unit, price, name, src} = produces.find(produce => produce.produceId === produceId);
 
 	return {
 		...ownProps,
@@ -83,6 +85,7 @@ const mapStateToProps = (state, ownProps) => {
 		quantity,
 		unit,
 		src,
+		produceId,
 	}
 }
 

@@ -5,11 +5,13 @@ import {
 	Modal,
 	Text,
 	TextInput,
-	TouchableNativeFeedback,
+	TouchableOpacity,
 	StyleSheet,
 	Picker,
 	Image,
 } from 'react-native';
+
+import { TextInputMask } from 'react-native-masked-text';
 
 import { connect } from "react-redux";
 
@@ -19,20 +21,56 @@ import {
 	TEXT_INPUT_BG,
 	PICKER_BG,
 	MASK,
+	BUTTON_MAIN_ACTIVE,
+	BUTTON_SECONDARY,
 } from '../../../util/Colors';
 
-import { toggleEditProduceModalVisible } from '../../../actions';
+import { toggleEditProduceModalVisible, updateProduce } from '../../../actions';
 
 class EditProduceModal extends React.Component {
+	state = {}
+
+	componentDidMount = () => {
+		const {name, price, unit} = this.props;
+
+		this.setState({
+			name,
+			price,
+			unit,
+		});
+	}
+
+	handleChange = property => value => {
+		this.setState({
+			[property]: value,
+		});
+	}
+
+	handleSave = () => {
+		const {produceId, updateProduce, onRequestClose} = this.props;
+		const {
+			name,
+			price,
+			unit,
+		} =	this.state;
+
+		updateProduce({produceId, name, price, unit});
+
+		onRequestClose();
+	}
+
 	render() {
 		const {
 			visible,
 			imageData,
 			onRequestClose,
+		} = this.props;
+
+		const {
 			name,
 			price,
 			unit,
-		} = this.props;
+		} =	this.state;
 
 		return (
 			<Modal transparent={true} animationType='fade' visible={visible} onRequestClose={onRequestClose}>
@@ -47,20 +85,36 @@ class EditProduceModal extends React.Component {
 									/>
 							</View>
 							<Text style={styles.fieldLabel}>Nome</Text>
-							<TextInput style={styles.textInput} value={name}/>
+							<TextInput style={styles.textInput} value={name} onChangeText={this.handleChange('name')}/>
 							<Text style={styles.fieldLabel}>Preço</Text>
 							<View style={styles.horizontal}>
-								<TextInput style={[styles.textInput, {width: 143}]} value={`${price/100.0}`}/>
+								<TextInputMask
+										style={[styles.textInput, {width: 143}]}
+										value={price/100.0}
+										type="money"
+										options={{
+											precision: 2,
+											separator: ',',
+											unit: 'R$',
+										}}
+										onChangeText={(_, rawValue) => this.handleChange('price')(100*rawValue)}
+										includeRawValueInChangeText
+									/>
 								<View style={styles.unitPicker}>
-									<Picker selectedValue="kg" mode='dropdown' >
+									<Picker selectedValue={unit} mode='dropdown' onValueChange={this.handleChange('unit')}>
 										<Picker.Item label="unidade" value="unidade" />
 										<Picker.Item label="kg" value="kg" />
 									</Picker>
 								</View>
 							</View>
-							<View>
-
-							</View>
+						</View>
+						<View style={styles.buttonRow}>
+							<TouchableOpacity style={styles.cancelButton} onPress={onRequestClose}>
+								<Text style={styles.buttonText}>Cancelar</Text>
+							</TouchableOpacity>
+							<TouchableOpacity style={styles.saveButton} onPress={this.handleSave}>
+								<Text style={styles.buttonText}>Salvar</Text>
+							</TouchableOpacity>
 						</View>
 					</View>
 				</View>
@@ -141,7 +195,37 @@ const styles = StyleSheet.create({
 	},
 	horizontal: {
 		flexDirection: 'row',
+		justifyContent: 'space-between',
 	},
+	buttonRow: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		marginTop: 25,
+	},
+	saveButton: {
+		width: 128,
+		height: 54,
+		alignItems: 'center',
+		justifyContent: 'center',
+		borderRadius: 3,
+		backgroundColor: BUTTON_MAIN_ACTIVE,
+	},
+	cancelButton: {
+		width: 128,
+		height: 54,
+		alignItems: 'center',
+		justifyContent: 'center',
+		borderRadius: 3,
+		backgroundColor: BUTTON_SECONDARY,
+	},
+	buttonText: {
+		fontSize: 19,
+		color: 'white',
+		fontFamily: 'Roboto',
+		fontWeight: 'bold',
+		lineHeight: 30,
+		letterSpacing: 0.14,
+	}
 });
 
 const mapDispatchToProps = dispatch => {
@@ -153,6 +237,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = (state, ownProps) => {
 	const {isEditProduceModalVisible} = state;
+
 	return {
 		visible: isEditProduceModalVisible,
 	}
