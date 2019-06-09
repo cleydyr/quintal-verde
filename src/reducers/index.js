@@ -6,6 +6,7 @@ import {
 	UPDATE_STOCKS,
 	UPDATE_USERS,
 	TOGGLE_PRODUCE_MODAL_VISIBLE,
+	UPDATE_PRODUCE,
 } from '../actions';
 
 const initialState = {
@@ -26,6 +27,7 @@ export default function reducer(state = initialState, action) {
 		stockItems,
 		stocks,
 		users,
+		produce,
 	} = action;
 
 	switch(action.type) {
@@ -64,6 +66,11 @@ export default function reducer(state = initialState, action) {
 			return {
 				...state,
 				isEditProduceModalVisible: !state.isEditProduceModalVisible,
+			}
+		case UPDATE_PRODUCE:
+			return {
+				...state,
+				produces: state.produces.map(p => p.produceId === produce.produceId ? {...p, ...produce} : p),
 			}
 		default:
 			return state;

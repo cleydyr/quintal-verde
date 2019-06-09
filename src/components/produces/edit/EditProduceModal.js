@@ -146,7 +146,8 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onRequestClose: () => dispatch(toggleEditProduceModalVisible())
+		onRequestClose: () => dispatch(toggleEditProduceModalVisible()),
+		updateProduce: produce => dispatch(updateProduce(produce)),
 	}
 }
 
