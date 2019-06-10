@@ -7,10 +7,10 @@ import {
 
 import ProducesListBanner from './ProducesListBanner';
 import ProducesListItem from './ProducesListItem';
-
 export default class ProducesBody extends React.Component {
-	_renderSectionHeader = ({productData}) => () => <ProducesListBanner submissionDeadline="20/08/2019" produceQuantity={productData && productData.length}/>
-	_renderItem = ({onEachItemPress}) => ({item}) => <ProducesListItem onPress={onEachItemPress(item)} {...item}/>;
+
+	_renderSectionHeader = () => <ProducesListBanner submissionDeadline="20/08/2019" produceQuantity={this.props.productData && this.props.productData.length}/>
+	_renderItem = ({item}) => <ProducesListItem onPress={this.props.onEachItemPress(item)} {...item}/>;
 	_keyExtractor = (_, index) => index
 
 	render() {
@@ -22,8 +22,8 @@ export default class ProducesBody extends React.Component {
 					scrollEventThrottle={50}
 					onScroll={onScroll}
 					sections={[{data: productData || []}]}
-					renderSectionHeader={this._renderSectionHeader(this.props)}
-					renderItem={this._renderItem(this.props)}
+					renderSectionHeader={this._renderSectionHeader}
+					renderItem={this._renderItem}
 					keyExtractor={this._keyExtractor}
 				/>
 			</View>

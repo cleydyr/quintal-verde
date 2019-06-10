@@ -22,6 +22,12 @@ export default class FloatingScrollAwareButton extends React.Component {
 		animating: false,
 	}
 
+	shouldComponentUpdate = () => {
+		const {animating} = this.state;
+
+		return !animating;
+	}
+
 	handleVisibility = hide => {
 		const {animating, animationValue} = this.state;
 		

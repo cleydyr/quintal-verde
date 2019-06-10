@@ -68,7 +68,7 @@ class ProducesScreen extends React.Component {
 
 		return (
 			<View style={styles.container}>
-				<ProducesBody productData={listItems} onScroll={this.handleSendListVisibility} onEachItemPress={this.navigateToDetails} navigation={navigation}/>
+				<ProducesBody productData={listItems} onScroll={this.handleSendListVisibility} onEachItemPress={this.navigateToDetails} />
 				<FloatingScrollAwareButton buttonText="Enviar lista para clientes" hide={hide} />
 			</View>
 		);

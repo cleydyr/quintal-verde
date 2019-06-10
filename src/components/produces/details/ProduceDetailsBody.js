@@ -12,8 +12,8 @@ import ProduceSellerListItem from './ProduceSellerListItem';
 import Separator from '../../Separator';
 
 export default class ProduceDetailsBody extends React.Component {
-	_renderSectionHeader = ({unit, quantity}) => () => <SectionHeader unit={unit} quantity={quantity} />
-	_renderItem = ({unit}) => ({item}) => <ProduceSellerListItem unit={unit} {...item} />
+	_renderSectionHeader = () => <SectionHeader unit={this.props.unit} quantity={this.props.quantity} />
+	_renderItem = ({item}) => <ProduceSellerListItem unit={this.props.unit} {...item} />
 	_keyExtractor = (_, index) => index
 
 	render() {
@@ -23,8 +23,8 @@ export default class ProduceDetailsBody extends React.Component {
 			<View style={styles.container}>
 				<SectionList
 					sections={[{data: availability}]}
-					renderSectionHeader={this._renderSectionHeader(this.props)}
-					renderItem={this._renderItem(this.props)}
+					renderSectionHeader={this._renderSectionHeader}
+					renderItem={this._renderItem}
 					keyExtractor={this._keyExtractor}
 				/>
 			</View>
