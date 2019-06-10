@@ -5,13 +5,16 @@ import {
 	SectionList,
 } from 'react-native';
 
-
 import ProducesListBanner from './ProducesListBanner';
 import ProducesListItem from './ProducesListItem';
 
 export default class ProducesBody extends React.Component {
+	_renderSectionHeader = ({productData}) => () => <ProducesListBanner submissionDeadline="20/08/2019" produceQuantity={productData && productData.length}/>
+	_renderItem = ({onEachItemPress}) => ({item}) => <ProducesListItem onPress={onEachItemPress(item)} {...item}/>;
+	_keyExtractor = (_, index) => index
+
 	render() {
-		const {productData, onScroll, onEachItemPress} = this.props;
+		const {productData, onScroll} = this.props;
 
 		return (
 			<View style={styles.container}>
@@ -19,9 +22,9 @@ export default class ProducesBody extends React.Component {
 					scrollEventThrottle={50}
 					onScroll={onScroll}
 					sections={[{data: productData || []}]}
-					renderSectionHeader={() => <ProducesListBanner submissionDeadline="20/08/2019" produceQuantity={productData && productData.length || 0}/>}
-					renderItem={({item}) => <ProducesListItem onPress={onEachItemPress(item)} {...item}/>}
-					keyExtractor={(item, index) => index}
+					renderSectionHeader={this._renderSectionHeader(this.props)}
+					renderItem={this._renderItem(this.props)}
+					keyExtractor={this._keyExtractor}
 				/>
 			</View>
 		);

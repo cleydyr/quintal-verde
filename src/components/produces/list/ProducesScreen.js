@@ -9,6 +9,7 @@ import ProducesHeader from './ProducesHeader';
 import ProducesBody from './ProducesBody';
 import LoadingScreen from '../../LoadingScreen';
 import FloatingScrollAwareButton from './FloatingScrollAwareButton';
+import {runAfterInteractions as rai} from '../../../util/InteractionManager';
 
 import {startFetching} from '../../../actions';
 import {denormalizeData} from '../../../util/Functions';
@@ -49,10 +50,10 @@ class ProducesScreen extends React.Component {
 	navigateToDetails = item => () => {
 		const {navigation, dispatch} = this.props;
 
-		navigation.navigate('ProduceDetails', {
+		rai(() => navigation.navigate('ProduceDetails', {
 			item,
 			dispatch,
-		});
+		}));
 	}
 
 	render() {

@@ -4,6 +4,9 @@ import {
 	View,
 	StyleSheet,
 } from 'react-native';
+
+import {runAfterInteractions as rai} from '../../../util/InteractionManager';
+
 import {connect} from 'react-redux';
 
 import {MaterialIcons} from '@expo/vector-icons';
@@ -30,7 +33,10 @@ class ProduceDetailsScreen extends React.Component {
 				height: 56,
 			},
 			headerTintColor: 'white',
-			headerRight: <HeaderButton onPress={() => dispatch(toggleEditProduceModalVisible())} element={MaterialIcons} name="edit"/>,
+			headerRight: <HeaderButton
+					onPress={() => rai(() => dispatch(toggleEditProduceModalVisible()))}
+					element={MaterialIcons} name="edit"
+				/>,
 		}
 	};
 
