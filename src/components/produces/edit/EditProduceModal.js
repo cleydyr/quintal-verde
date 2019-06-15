@@ -2,14 +2,12 @@ import React from 'react';
 
 import {
 	View,
-	Modal,
 	Text,
 	TextInput,
 	TouchableOpacity,
 	StyleSheet,
 	Picker,
 	Image,
-	KeyboardAvoidingView,
 } from 'react-native';
 
 import { TextInputMask } from 'react-native-masked-text';
@@ -21,12 +19,13 @@ import {
 	LABEL_TEXT,
 	TEXT_INPUT_BG,
 	PICKER_BG,
-	MASK,
 	BUTTON_MAIN_ACTIVE,
 	BUTTON_SECONDARY,
 } from '../../../util/Colors';
 
 import { toggleEditProduceModalVisible, updateProduce } from '../../../actions';
+
+import AppModal from '../../AppModal';
 
 class EditProduceModal extends React.Component {
 	state = {}
@@ -74,72 +73,53 @@ class EditProduceModal extends React.Component {
 		} =	this.state;
 
 		return (
-			<Modal transparent={true} animationType='fade' visible={visible} onRequestClose={onRequestClose}>
-				<KeyboardAvoidingView style={styles.modal} behavior='padding'>
-					<View style={styles.container}>
-						<Text style={styles.headline6}>Editar produto</Text>
-						<View style={styles.body}>
-							<View style={styles.imageContainer}>
-								<Image
-									source={{uri: imageData}}
-									style={styles.image}
-									/>
-							</View>
-							<Text style={styles.fieldLabel}>Nome</Text>
-							<TextInput style={styles.textInput} value={name} onChangeText={this.handleChange('name')}/>
-							<Text style={styles.fieldLabel}>Preço</Text>
-							<View style={styles.horizontal}>
-								<TextInputMask
-										style={[styles.textInput, {width: 143}]}
-										value={price/100.0}
-										type="money"
-										options={{
-											precision: 2,
-											separator: ',',
-											unit: 'R$',
-										}}
-										onChangeText={(_, rawValue) => this.handleChange('price')(100*rawValue)}
-										includeRawValueInChangeText
-									/>
-								<View style={styles.unitPicker}>
-									<Picker selectedValue={unit} mode='dropdown' onValueChange={this.handleChange('unit')}>
-										<Picker.Item label="unidade" value="unidade" />
-										<Picker.Item label="kg" value="kg" />
-									</Picker>
-								</View>
-							</View>
-						</View>
-						<View style={styles.buttonRow}>
-							<TouchableOpacity style={styles.cancelButton} onPress={onRequestClose}>
-								<Text style={styles.buttonText}>Cancelar</Text>
-							</TouchableOpacity>
-							<TouchableOpacity style={styles.saveButton} onPress={this.handleSave}>
-								<Text style={styles.buttonText}>Salvar</Text>
-							</TouchableOpacity>
+			<AppModal visible={visible} onRequestClose={onRequestClose} >
+				<Text style={styles.headline6}>Editar produto</Text>
+				<View style={styles.body}>
+					<View style={styles.imageContainer}>
+						<Image
+							source={{uri: imageData}}
+							style={styles.image}
+							/>
+					</View>
+					<Text style={styles.fieldLabel}>Nome</Text>
+					<TextInput style={styles.textInput} value={name} onChangeText={this.handleChange('name')}/>
+					<Text style={styles.fieldLabel}>Preço</Text>
+					<View style={styles.horizontal}>
+						<TextInputMask
+								style={[styles.textInput, {width: 143}]}
+								value={price/100.0}
+								type="money"
+								options={{
+									precision: 2,
+									separator: ',',
+									unit: 'R$',
+								}}
+								onChangeText={(_, rawValue) => this.handleChange('price')(100*rawValue)}
+								includeRawValueInChangeText
+							/>
+						<View style={styles.unitPicker}>
+							<Picker selectedValue={unit} mode='dropdown' onValueChange={this.handleChange('unit')}>
+								<Picker.Item label="unidade" value="unidade" />
+								<Picker.Item label="kg" value="kg" />
+							</Picker>
 						</View>
 					</View>
-				</KeyboardAvoidingView>
-			</Modal>
+				</View>
+				<View style={styles.buttonRow}>
+					<TouchableOpacity style={styles.cancelButton} onPress={onRequestClose}>
+						<Text style={styles.buttonText}>Cancelar</Text>
+					</TouchableOpacity>
+					<TouchableOpacity style={styles.saveButton} onPress={this.handleSave}>
+						<Text style={styles.buttonText}>Salvar</Text>
+					</TouchableOpacity>
+				</View>
+			</AppModal>
 		);
 	}
 }
 
 const styles = StyleSheet.create({
-	modal: {
-		alignItems: 'center',
-		justifyContent: 'center',
-		flex: 1,
-		backgroundColor: MASK,
-	},
-	container: {
-		paddingLeft: 24,
-		paddingRight: 24,
-		paddingBottom: 24,
-		paddingTop: 23,
-		width: 328,
-		height: 486,
-		backgroundColor: 'white',
-	},
 	body: {
 		marginTop: 25,
 	},
