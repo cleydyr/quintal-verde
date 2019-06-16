@@ -91,7 +91,6 @@ class AddProduceModal extends React.Component {
 			];
 
 			const saveOptions = {
-				compress: 0.4,
 				base64: true,
 			};
 
