@@ -9,6 +9,7 @@ import ProducesHeader from './ProducesHeader';
 import ProducesBody from './ProducesBody';
 import LoadingScreen from '../../LoadingScreen';
 import FloatingScrollAwareButton from './FloatingScrollAwareButton';
+import AddProduceModal from '../add/AddProduceModal';
 import {runAfterInteractions as rai} from '../../../util/InteractionManager';
 
 import {startFetching} from '../../../actions';
@@ -70,6 +71,7 @@ class ProducesScreen extends React.Component {
 			<View style={styles.container}>
 				<ProducesBody productData={listItems} onScroll={this.handleSendListVisibility} onEachItemPress={this.navigateToDetails} />
 				<FloatingScrollAwareButton buttonText="Enviar lista para clientes" hide={hide} />
+				<AddProduceModal />
 			</View>
 		);
 	}

@@ -14,6 +14,8 @@ import { TextInputMask } from 'react-native-masked-text';
 
 import { connect } from "react-redux";
 
+import {MaterialIcons} from '@expo/vector-icons';
+
 import {
 	BLACK_ALPHA,
 	LABEL_TEXT,
@@ -21,13 +23,21 @@ import {
 	PICKER_BG,
 	BUTTON_MAIN_ACTIVE,
 	BUTTON_SECONDARY,
+	IMAGE_PICKER_ICON,
 } from '../../../util/Colors';
 
-import { toggleModalVisible, updateProduce } from '../../../actions';
+import { toggleModalVisible, addProduce } from '../../../actions';
 
 import AppModal from '../../AppModal';
 
-class EditProduceModal extends React.Component {
+import {
+	ImagePicker,
+	ImageManipulator,
+} from 'expo';
+
+import uuidv1 from 'uuid/v1';
+
+class AddProduceModal extends React.Component {
 	state = {}
 
 	componentDidMount = () => {
@@ -47,22 +57,55 @@ class EditProduceModal extends React.Component {
 	}
 
 	handleSave = () => {
-		const {produceId, updateProduce, onRequestClose} = this.props;
+		const {addProduce, onRequestClose} = this.props;
+
 		const {
 			name,
 			price,
 			unit,
+			imageData,
 		} =	this.state;
 
-		updateProduce({produceId, name, price, unit});
+		addProduce({produceId: uuidv1(), name, price, unit, imageData});
 
 		onRequestClose();
+	}
+
+	pickImage = async () => {
+		const options = {
+			mediaTypes: ImagePicker.MediaTypeOptions.Images,
+			allowsEditing: true,
+			aspect: [1, 1],
+		}
+
+		const {cancelled, uri} = await ImagePicker.launchImageLibraryAsync(options);
+
+		if (!cancelled) {
+			const actions = [
+				{
+					resize: {
+						width: 116,
+						height: 116,
+					},
+				},
+			];
+
+			const saveOptions = {
+				compress: 0.4,
+				base64: true,
+			};
+
+			const {base64} = await ImageManipulator.manipulateAsync(uri, actions, saveOptions);
+
+			this.setState({
+				imageData: `data:image/jpeg;base64,${base64}`,
+			});
+		}
 	}
 
 	render() {
 		const {
 			visible,
-			imageData,
 			onRequestClose,
 		} = this.props;
 
@@ -70,18 +113,26 @@ class EditProduceModal extends React.Component {
 			name,
 			price,
 			unit,
+			imageData,
 		} =	this.state;
 
 		return (
 			<AppModal visible={visible} onRequestClose={onRequestClose} >
 				<Text style={styles.headline6}>Editar produto</Text>
 				<View style={styles.body}>
-					<View style={styles.imageContainer}>
-						<Image
-							source={{uri: imageData}}
-							style={styles.image}
+					<TouchableOpacity style={styles.imageContainer} onPress={this.pickImage}>
+					{
+						imageData ?
+							<Image
+								source={{uri: imageData}}
+								style={styles.image}
 							/>
-					</View>
+						:
+							<View style={styles.image} >
+								<MaterialIcons name="add-a-photo" size={37} color={IMAGE_PICKER_ICON} />
+							</View>
+					}
+					</TouchableOpacity>
 					<Text style={styles.fieldLabel}>Nome</Text>
 					<TextInput style={styles.textInput} value={name} onChangeText={this.handleChange('name')}/>
 					<Text style={styles.fieldLabel}>Preço</Text>
@@ -139,6 +190,9 @@ const styles = StyleSheet.create({
 		width: 116,
 		height: 116,
 		borderRadius: 4,
+		backgroundColor: TEXT_INPUT_BG,
+		alignItems: 'center',
+		justifyContent: 'center',
 	},
 	fieldLabel: {
 		marginTop: 12,
@@ -212,7 +266,7 @@ const styles = StyleSheet.create({
 const mapDispatchToProps = dispatch => {
 	return {
 		onRequestClose: () => dispatch(toggleModalVisible()),
-		updateProduce: produce => dispatch(updateProduce(produce)),
+		addProduce: produce => dispatch(addProduce(produce)),
 	}
 }
 
@@ -224,4 +278,4 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditProduceModal);
+export default connect(mapStateToProps, mapDispatchToProps)(AddProduceModal);

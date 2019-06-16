@@ -20,7 +20,7 @@ import {
 
 import { calculateAvailability } from '../../../util/Functions';
 import EditProduceModal from '../edit/EditProduceModal';
-import { toggleEditProduceModalVisible } from '../../../actions';
+import { toggleModalVisible } from '../../../actions';
 import HeaderButton from '../../HeaderButton';
 
 class ProduceDetailsScreen extends React.Component {
@@ -34,7 +34,7 @@ class ProduceDetailsScreen extends React.Component {
 			},
 			headerTintColor: 'white',
 			headerRight: <HeaderButton
-					onPress={() => rai(() => dispatch(toggleEditProduceModalVisible()))}
+					onPress={() => rai(() => dispatch(toggleModalVisible()))}
 					element={MaterialIcons} name="edit"
 				/>,
 		}

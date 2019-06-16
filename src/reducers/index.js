@@ -7,6 +7,7 @@ import {
 	UPDATE_USERS,
 	TOGGLE_PRODUCE_MODAL_VISIBLE,
 	UPDATE_PRODUCE,
+	ADD_PRODUCE,
 } from '../actions';
 
 const initialState = {
@@ -71,6 +72,11 @@ export default function reducer(state = initialState, action) {
 			return {
 				...state,
 				produces: state.produces.map(p => p.produceId === produce.produceId ? {...p, ...produce} : p),
+			}
+		case ADD_PRODUCE:
+			return {
+				...state,
+				produces: [...state.produces, produce],
 			}
 		default:
 			return state;

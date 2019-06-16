@@ -9,15 +9,22 @@ import { Entypo } from '@expo/vector-icons';
 
 import HeaderButton from '../../HeaderButton';
 
-export default class ProducesHeader extends React.Component {
+import { toggleModalVisible } from '../../../actions';
+
+import {connect} from 'react-redux';
+
+import {runAfterInteractions as rai} from '../../../util/InteractionManager';
+
+class ProducesHeader extends React.Component {
 	render() {
+		const {dispatch} = this.props;
 		return (
 			<View style={styles.container}>
 				<HeaderButton element={Entypo} name="menu" />
 				<View style={styles.headerCenter} >
 					<Text style={styles.headerTitle}>Produtos</Text>
 				</View>
-				<HeaderButton element={Entypo} name="plus" />
+				<HeaderButton element={Entypo} name="plus" onPress={() => rai(() => dispatch(toggleModalVisible()))}/>
 			</View>
 		);
 	}
@@ -42,3 +49,5 @@ const styles = StyleSheet.create({
 		width: 216,
 	},
 });
+
+export default connect()(ProducesHeader);
